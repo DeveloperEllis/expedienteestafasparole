@@ -1,0 +1,6 @@
+{
+  "name": "Contador de Publicación",
+  "description": "Página web con contador regresivo hasta el viernes para la publicación de información y pruebas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
