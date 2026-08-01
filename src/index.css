@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .font-sans {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  .bg-mesh {
+    background: radial-gradient(circle at 50% 30%, #1c1917 0%, #0d0a0a 50%, #050505 100%);
+  }
+  .timer-box {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+  }
+  .glow-rose {
+    text-shadow: 0 0 25px rgba(225, 29, 72, 0.5);
+  }
+  .glow-white {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+}
+

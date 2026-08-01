@@ -1,6 +1,6 @@
 {
-  "name": "Expediente de Estafa de Parole: Caso Reinaldo-Yaksiel",
-  "description": "Portal de investigación periodística dedicado a documentar la red de estafas en el Parole Humanitario de Ludin Imirsis Reinaldo Pelaez y su esposo Yaksiel, incluyendo transferencias directas y evasión utilizando menores.",
+  "name": "Contador de Publicación",
+  "description": "Página web con contador regresivo hasta el viernes para la publicación de información y pruebas.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
