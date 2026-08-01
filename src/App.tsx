@@ -16,7 +16,6 @@ import { Share2, Check, Sun, Moon, Clock, ShieldCheck } from 'lucide-react';
 export default function App() {
   const [darkMode, setDarkMode] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
-  const [simulationMode, setSimulationMode] = useState<SimulationMode>('realtime');
 
   // Real clock state
   const [realNow, setRealNow] = useState<Date>(() => new Date());
@@ -39,35 +38,8 @@ export default function App() {
     }
   }, [darkMode]);
 
-  // Determine active date (Realtime vs Simulated)
-  const activeNow = useMemo(() => {
-    const fridayMs = targetFriday.getTime();
-    const DAY_MS = 24 * 60 * 60 * 1000;
-
-    switch (simulationMode) {
-      case 'phase_friday':
-        // Friday morning (e.g. 14 hours before Friday 23:59:59)
-        return new Date(fridayMs - 14 * 60 * 60 * 1000);
-      case 'phase_saturday':
-        // Saturday afternoon (14 hours into Saturday)
-        return new Date(fridayMs + 14 * 60 * 60 * 1000);
-      case 'phase_sunday_p1':
-        // Sunday (12 hours into Sunday) -> Punto 1 active
-        return new Date(fridayMs + DAY_MS + 12 * 60 * 60 * 1000);
-      case 'phase_monday_p2':
-        // Monday (1.5 days after Saturday end) -> Punto 2 active
-        return new Date(fridayMs + DAY_MS * 2.5);
-      case 'phase_tuesday_p3':
-        // Tuesday (2.5 days after Saturday end) -> Punto 3 active
-        return new Date(fridayMs + DAY_MS * 3.5);
-      case 'phase_thursday_p4':
-        // Thursday (4.5 days after Saturday end) -> Punto 4 active
-        return new Date(fridayMs + DAY_MS * 5.5);
-      case 'realtime':
-      default:
-        return realNow;
-    }
-  }, [simulationMode, realNow, targetFriday]);
+  // Active date is always real time
+  const activeNow = realNow;
 
   // Determine phase
   const activePhase = useMemo(() => {
