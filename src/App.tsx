@@ -11,7 +11,6 @@ import {
 import { PhaseCountdown } from './components/PhaseCountdown';
 import { PhaseSaturdayLoading } from './components/PhaseSaturdayLoading';
 import { PhaseSundayRoadmap } from './components/PhaseSundayRoadmap';
-import { SimulationControls, SimulationMode } from './components/SimulationControls';
 import { Share2, Check, Sun, Moon, Clock, ShieldCheck } from 'lucide-react';
 
 export default function App() {
@@ -143,11 +142,6 @@ export default function App() {
         </div>
       </header>
 
-      {/* Interactive Simulation Controls to easily preview each phase */}
-      <SimulationControls
-        currentMode={simulationMode}
-        onSelectMode={setSimulationMode}
-      />
 
       {/* Main Container dynamically rendering active phase */}
       <main className="max-w-3xl mx-auto w-full my-auto py-4 sm:py-8 flex flex-col items-center">
