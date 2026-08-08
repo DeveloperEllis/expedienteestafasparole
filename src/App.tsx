@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
-  getUpcomingFriday,
-  getAppPhase,
-  getSaturdayProgress,
-  getSaturdayTimeLeft,
-  getRoadmapSteps,
-  formatSpanishDate,
+  getDailyProgress,
+  getDailyTimeLeft,
 } from './utils/dateUtils';
 import { PhaseSaturdayLoading } from './components/PhaseSaturdayLoading';
-import { PhaseSundayRoadmap } from './components/PhaseSundayRoadmap';
 import { Share2, Check, Sun, Moon, Clock, ShieldCheck } from 'lucide-react';
 
 export default function App() {
@@ -17,7 +12,6 @@ export default function App() {
 
   // Real clock state
   const [realNow, setRealNow] = useState<Date>(() => new Date());
-  const [targetFriday] = useState<Date>(() => getUpcomingFriday());
 
   // Timer interval
   useEffect(() => {
@@ -36,26 +30,14 @@ export default function App() {
     }
   }, [darkMode]);
 
-  // Active date is always real time
-  const activeNow = realNow;
+  // Real-time daily calculations (progress advances continuously throughout the day)
+  const dailyProgress = useMemo(() => {
+    return getDailyProgress(realNow);
+  }, [realNow]);
 
-  // Determine phase
-  const activePhase = useMemo(() => {
-    return getAppPhase(activeNow, targetFriday);
-  }, [activeNow, targetFriday]);
-
-  // Time calculations
-  const saturdayProgress = useMemo(() => {
-    return getSaturdayProgress(activeNow, targetFriday);
-  }, [activeNow, targetFriday]);
-
-  const saturdayTimeLeft = useMemo(() => {
-    return getSaturdayTimeLeft(activeNow, targetFriday);
-  }, [activeNow, targetFriday]);
-
-  const roadmapData = useMemo(() => {
-    return getRoadmapSteps(activeNow, targetFriday);
-  }, [activeNow, targetFriday]);
+  const dailyTimeLeft = useMemo(() => {
+    return getDailyTimeLeft(realNow);
+  }, [realNow]);
 
   // Share link handler
   const handleShare = () => {
@@ -108,24 +90,12 @@ export default function App() {
         </div>
       </header>
 
-
-      {/* Main Container dynamically rendering active phase */}
+      {/* Main Container rendering the publication loading view */}
       <main className="max-w-3xl mx-auto w-full my-auto py-4 sm:py-8 flex flex-col items-center">
-        {activePhase === 'saturday_loading' && (
-          <PhaseSaturdayLoading
-            progress={saturdayProgress}
-            timeLeft={saturdayTimeLeft}
-          />
-        )}
-
-        {activePhase === 'sunday_roadmap' && (
-          <PhaseSundayRoadmap
-            steps={roadmapData.steps}
-            overallProgress={roadmapData.overallProgress}
-            activeStepIndex={roadmapData.activeStepIndex}
-            currentDayName={roadmapData.currentDayName}
-          />
-        )}
+        <PhaseSaturdayLoading
+          progress={dailyProgress}
+          timeLeft={dailyTimeLeft}
+        />
       </main>
 
       {/* Footer */}
@@ -133,13 +103,13 @@ export default function App() {
         <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 dark:via-white/10 to-transparent" />
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 opacity-60 text-[11px] tracking-wider uppercase">
           <span className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-rose-500" />
-            Fecha Límite Viernes: {formatSpanishDate(targetFriday)}
+            <Clock className="w-3.5 h-3.5 text-amber-500" />
+            Sincronización en Tiempo Real
           </span>
           <span>•</span>
           <span className="flex items-center gap-1">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-            Vercel Host Ready
+            Servidor Activo
           </span>
         </div>
       </footer>

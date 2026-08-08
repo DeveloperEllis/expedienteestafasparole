@@ -37,24 +37,28 @@ export function getAppPhase(now: Date, targetFriday: Date): AppPhase {
 /**
  * Saturday loading progress (0% to 100% across 24 hours of Saturday)
  */
-export function getSaturdayProgress(now: Date, targetFriday: Date): number {
-  const startMs = targetFriday.getTime();
-  const endMs = startMs + 24 * 60 * 60 * 1000;
-  const nowMs = now.getTime();
-
-  if (nowMs <= startMs) return 0;
-  if (nowMs >= endMs) return 100;
-
-  const progress = ((nowMs - startMs) / (endMs - startMs)) * 100;
-  return Math.min(Math.max(progress, 0), 100);
+export function getDailyProgress(now: Date = new Date()): number {
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  const ms = now.getMilliseconds();
+  const currentSeconds = hours * 3600 + minutes * 60 + seconds + ms / 1000;
+  const totalSecondsInDay = 86400;
+  return Math.min(Math.max((currentSeconds / totalSecondsInDay) * 100, 0), 100);
 }
 
-/**
- * Saturday remaining time calculation
- */
-export function getSaturdayTimeLeft(now: Date, targetFriday: Date): TimeLeft {
-  const saturdayEndMs = targetFriday.getTime() + 24 * 60 * 60 * 1000;
-  return calculateTimeLeft(new Date(saturdayEndMs), now);
+export function getDailyTimeLeft(now: Date = new Date()): TimeLeft {
+  const hours = 23 - now.getHours();
+  const minutes = 59 - now.getMinutes();
+  const seconds = 59 - now.getSeconds();
+  return {
+    days: 0,
+    hours: Math.max(0, hours),
+    minutes: Math.max(0, minutes),
+    seconds: Math.max(0, seconds),
+    totalMs: (hours * 3600 + minutes * 60 + seconds) * 1000,
+    isCompleted: false,
+  };
 }
 
 /**
