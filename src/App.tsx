@@ -93,7 +93,7 @@ export default function App() {
       {/* Main Container rendering the publication loading view */}
       <main className="max-w-3xl mx-auto w-full my-auto py-4 sm:py-8 flex flex-col items-center">
         <PhaseSaturdayLoading
-          progress={96}
+          progress={97}
           timeLeft={dailyTimeLeft}
         />
       </main>
