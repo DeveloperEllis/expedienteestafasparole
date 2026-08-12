@@ -22,7 +22,7 @@ export const PhaseSaturdayLoading: React.FC<PhaseSaturdayLoadingProps> = ({
   const [activeFileIndex, setActiveFileIndex] = useState(0);
 
   // Display value fixed at 96% as requested
-  const displayProgress = 96;
+  const displayProgress = 97;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -81,7 +81,7 @@ export const PhaseSaturdayLoading: React.FC<PhaseSaturdayLoadingProps> = ({
               <span className="relative flex h-2 w-2">
                 <span className="inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
               </span>
-              Subida de contenido pausada (96%)
+              Subida de contenido pausada (97%)
             </span>
           </div>
         </div>
@@ -138,7 +138,7 @@ export const PhaseSaturdayLoading: React.FC<PhaseSaturdayLoadingProps> = ({
                 Subida de datos y evidencias
               </span>
               <span className="text-amber-400 font-semibold">
-                Proceso pausado en 96%
+                Proceso pausado en 97%
               </span>
             </div>
           </div>
