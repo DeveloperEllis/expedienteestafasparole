@@ -10,7 +10,6 @@ import {
   Globe2,
   Radio,
   Clock,
-  FlaskConical,
 } from 'lucide-react';
 import { SUBJECT_NAME } from '../config/subject';
 import {
@@ -54,6 +53,7 @@ export const PhaseDistribution: React.FC = () => {
   useEffect(() => {
     let counter = 0;
     const id = setInterval(() => {
+      if (totalReach(new Date()) === 0) return;
       const location = pickLocation();
       const amount = Math.floor(15 + Math.random() * 40 * (1 + location.weight * 10));
       counter += 1;
@@ -98,20 +98,16 @@ export const PhaseDistribution: React.FC = () => {
   }, []);
 
   const stats = [
-    { label: 'Personas alcanzadas', value: reach, icon: Users, color: 'text-emerald-400' },
-    { label: 'Impresiones', value: reach * 2.6, icon: Eye, color: 'text-sky-400' },
-    { label: 'Veces compartido', value: reach * 0.035, icon: Share2, color: 'text-pink-400' },
-    { label: 'Ciudades activas', value: LOCATIONS.length, icon: MapPin, color: 'text-amber-400' },
+    { label: 'Alcance posible', value: reach, icon: Users, color: 'text-emerald-400' },
+    { label: 'Impresiones estimadas', value: reach * 2.6, icon: Eye, color: 'text-sky-400' },
+    { label: 'Compartidos estimados', value: reach * 0.035, icon: Share2, color: 'text-pink-400' },
+    { label: 'Ciudades objetivo', value: LOCATIONS.length, icon: MapPin, color: 'text-amber-400' },
   ];
 
   return (
     <div className="w-full max-w-3xl mx-auto flex flex-col items-center text-center space-y-8">
       {/* Encabezado */}
       <div className="space-y-3">
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full border border-violet-500/40 bg-violet-500/10 text-violet-300">
-          <FlaskConical className="w-3 h-3" />
-          Maqueta · datos simulados
-        </span>
         <span className="font-mono text-emerald-500 text-xs font-semibold tracking-[0.25em] uppercase flex items-center justify-center gap-2">
           <Radio className="w-3.5 h-3.5 animate-pulse" />
           Plan de distribución en curso
@@ -168,12 +164,15 @@ export const PhaseDistribution: React.FC = () => {
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600" />
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-emerald-400 flex items-center justify-center gap-2">
           <Megaphone className="w-4 h-4" />
-          Alcance de distribución
+          Posible alcance según el presupuesto destinado
         </p>
         <p className="mt-3 font-mono text-5xl sm:text-7xl font-bold text-neutral-900 dark:text-white tabular-nums">
           {formatNumber(reach)}
         </p>
-        <p className="text-sm text-neutral-500 mt-1">personas</p>
+        <p className="text-sm text-neutral-500 mt-1">personas que se podrían alcanzar</p>
+        <p className="text-[11px] text-neutral-500 mt-3 max-w-md mx-auto">
+          Estimación. El alcance final depende del presupuesto que se destine a la campaña.
+        </p>
 
         <div className="mt-6 flex items-center justify-center gap-2 text-xs font-mono text-neutral-400">
           <Clock className="w-3.5 h-3.5 text-amber-500" />
@@ -202,7 +201,7 @@ export const PhaseDistribution: React.FC = () => {
         <section className="timer-box rounded-3xl p-5 space-y-3">
           <h3 className="font-mono text-xs uppercase tracking-widest text-neutral-400 flex items-center gap-2">
             <MapPin className="w-4 h-4 text-amber-500" />
-            Alcance por ciudad
+            Alcance posible por ciudad
           </h3>
           <ul className="space-y-2.5">
             {LOCATIONS.map((loc) => (
@@ -232,7 +231,7 @@ export const PhaseDistribution: React.FC = () => {
           <section className="timer-box rounded-3xl p-5 space-y-3">
             <h3 className="font-mono text-xs uppercase tracking-widest text-neutral-400 flex items-center gap-2">
               <Globe2 className="w-4 h-4 text-sky-400" />
-              Por país
+              Alcance posible por país
             </h3>
             {countries.map(([country, { flag, weight }]) => (
               <div key={country} className="flex justify-between text-sm">
@@ -269,10 +268,10 @@ export const PhaseDistribution: React.FC = () => {
           <section className="timer-box rounded-3xl p-5 space-y-3">
             <h3 className="font-mono text-xs uppercase tracking-widest text-neutral-400 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Actividad en vivo
+              Proyección en tiempo real
             </h3>
             {feed.length === 0 ? (
-              <p className="text-xs text-neutral-500">Esperando actividad…</p>
+              <p className="text-xs text-neutral-500">La proyección empieza al iniciar la campaña.</p>
             ) : (
               <ul className="space-y-1.5">
                 {feed.map((item) => (

@@ -1,5 +1,7 @@
+import { CAMPAIGN_END, CAMPAIGN_START, TARGET_REACH } from '../config/campaign';
+
 /**
- * Datos simulados para la maqueta del panel de distribución.
+ * Estimación del alcance posible de la campaña.
  * Todo se calcula a partir de la hora actual, así que los números
  * siguen subiendo aunque se recargue la página y nunca bajan.
  */
@@ -44,49 +46,30 @@ export const CHANNELS: Channel[] = [
   { name: 'YouTube', weight: 0.06, color: 'bg-red-500' },
 ];
 
-// Alcance que se alcanza al final del periodo.
-export const TARGET_REACH = 180_000;
-
-/** Inicio del periodo: hoy a las 00:00. */
-export function periodStart(now: Date): Date {
-  const d = new Date(now);
-  d.setHours(0, 0, 0, 0);
-  return d;
-}
-
-/** Fin del periodo: mañana a las 23:59:59. */
-export function periodEnd(now: Date): Date {
-  const d = periodStart(now);
-  d.setDate(d.getDate() + 1);
-  d.setHours(23, 59, 59, 999);
-  return d;
-}
-
-/** Avance del periodo de 0 a 1. */
+/** Avance de la campaña de 0 a 1. */
 export function periodProgress(now: Date): number {
-  const start = periodStart(now).getTime();
-  const end = periodEnd(now).getTime();
+  const start = CAMPAIGN_START.getTime();
+  const end = CAMPAIGN_END.getTime();
   return Math.min(1, Math.max(0, (now.getTime() - start) / (end - start)));
 }
 
 /**
- * Alcance total simulado. Crece rápido al principio y más lento al final,
- * siempre hacia arriba.
+ * Alcance posible estimado. Empieza en 0, crece rápido al principio
+ * y más lento al final, siempre hacia arriba.
  */
 export function totalReach(now: Date): number {
   const t = periodProgress(now);
   const eased = 1 - Math.pow(1 - t, 1.8);
-  // Base mínima para que nunca empiece en cero.
-  return Math.floor(1_250 + (TARGET_REACH - 1_250) * eased);
+  return Math.floor(TARGET_REACH * eased);
 }
 
 export function formatNumber(n: number): string {
   return new Intl.NumberFormat('es-MX').format(Math.floor(n));
 }
 
-/** Tiempo restante hasta el fin del periodo. */
+/** Tiempo restante hasta el cierre de la campaña. */
 export function timeUntilEnd(now: Date) {
-  const diff = Math.max(0, periodEnd(now).getTime() - now.getTime());
+  const diff = Math.max(0, CAMPAIGN_END.getTime() - now.getTime());
   return {
     hours: Math.floor(diff / 3_600_000),
     minutes: Math.floor((diff % 3_600_000) / 60_000),
