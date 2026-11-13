@@ -8,7 +8,7 @@ interface PhaseSaturdayLoadingProps {
 }
 
 const UPLOADING_FILES = [
-  'expediente_ludin_pelaez_2026.pdf',
+  'expediente_principal_2026.pdf',
   'actas_verificacion_oficial.zip',
   'sincronizacion_base_datos.sql',
   'evidencias_adjuntas_servidor.enc',
@@ -40,7 +40,7 @@ export const PhaseSaturdayLoading: React.FC<PhaseSaturdayLoadingProps> = ({
           FASE DE PREPARACIÓN DE SERVIDORES
         </span>
         <h1 className="serif text-3xl sm:text-5xl font-light italic leading-tight text-neutral-900 dark:text-white">
-          Ludin Imirsis Reinaldo Pelaez
+          Nombre del expediente
         </h1>
       </div>
 
@@ -146,7 +146,7 @@ export const PhaseSaturdayLoading: React.FC<PhaseSaturdayLoadingProps> = ({
 
         <div className="pt-2 text-left flex items-start gap-3 text-xs text-neutral-600 dark:text-neutral-400 font-sans">
           <p className="text-neutral-500 dark:text-neutral-400 leading-relaxed">
-            El paquete de archivos y evidencias de <strong>Ludin Imirsis Reinaldo Pelaez</strong> se encuentra pausado al 96% de su verificación técnica en el servidor.
+            El paquete de archivos y evidencias de <strong>Nombre del expediente</strong> se encuentra pausado al 96% de su verificación técnica en el servidor.
           </p>
         </div>
       </div>

@@ -30,7 +30,7 @@ export const StatementCard: React.FC<StatementCardProps> = ({ isCompleted }) => 
           Public Release Schedule
         </h2>
         <h1 className="serif text-4xl sm:text-6xl md:text-7xl font-light italic leading-tight tracking-tight text-neutral-900 dark:text-white drop-shadow-sm">
-          Ludin Imirsis Reinaldo Pelaez
+          Nombre del expediente
         </h1>
       </div>
 

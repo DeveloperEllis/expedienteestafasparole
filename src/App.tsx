@@ -1,25 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import {
-  getDailyProgress,
-  getDailyTimeLeft,
-} from './utils/dateUtils';
-import { PhaseSaturdayLoading } from './components/PhaseSaturdayLoading';
+import React, { useState, useEffect } from 'react';
+import { PhaseDistribution } from './components/PhaseDistribution';
 import { Share2, Check, Sun, Moon, Clock, ShieldCheck } from 'lucide-react';
 
 export default function App() {
   const [darkMode, setDarkMode] = useState<boolean>(true);
   const [copied, setCopied] = useState<boolean>(false);
-
-  // Real clock state
-  const [realNow, setRealNow] = useState<Date>(() => new Date());
-
-  // Timer interval
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRealNow(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   // Toggle Dark Mode
   useEffect(() => {
@@ -29,15 +14,6 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
-
-  // Real-time daily calculations (progress advances continuously throughout the day)
-  const dailyProgress = useMemo(() => {
-    return getDailyProgress(realNow);
-  }, [realNow]);
-
-  const dailyTimeLeft = useMemo(() => {
-    return getDailyTimeLeft(realNow);
-  }, [realNow]);
 
   // Share link handler
   const handleShare = () => {
@@ -58,7 +34,7 @@ export default function App() {
       <header className="w-full max-w-4xl mx-auto flex items-center justify-between text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
-          <span>SISTEMA DE PUBLICACIÓN</span>
+          <span>PANEL DE DISTRIBUCIÓN</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -92,10 +68,7 @@ export default function App() {
 
       {/* Main Container rendering the publication loading view */}
       <main className="max-w-3xl mx-auto w-full my-auto py-4 sm:py-8 flex flex-col items-center">
-        <PhaseSaturdayLoading
-          progress={99}
-          timeLeft={dailyTimeLeft}
-        />
+        <PhaseDistribution />
       </main>
 
       {/* Footer */}

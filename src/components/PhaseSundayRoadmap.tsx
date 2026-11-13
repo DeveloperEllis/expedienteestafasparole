@@ -39,7 +39,7 @@ export const PhaseSundayRoadmap: React.FC<PhaseSundayRoadmapProps> = ({
           CRONOGRAMA ACTIVO — DÍA DE HOY: {currentDayName.toUpperCase()}
         </span>
         <h1 className="serif text-3xl sm:text-5xl font-light italic leading-tight text-neutral-900 dark:text-white">
-          Ludin Imirsis Reinaldo Pelaez
+          Nombre del expediente
         </h1>
       </div>
 

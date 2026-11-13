@@ -20,7 +20,7 @@ export const PhaseCountdown: React.FC<PhaseCountdownProps> = ({ timeLeft }) => {
           Publicación Programada
         </span>
         <h1 className="serif text-4xl sm:text-6xl md:text-7xl font-light italic leading-tight tracking-tight text-neutral-900 dark:text-white drop-shadow-sm">
-          Ludin Imirsis Reinaldo Pelaez
+          Nombre del expediente
         </h1>
       </div>
 
