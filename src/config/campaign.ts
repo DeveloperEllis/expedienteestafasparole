@@ -5,4 +5,4 @@ export const CAMPAIGN_START = new Date('2026-11-13T21:55:00Z');
 export const CAMPAIGN_END = new Date('2026-11-15T04:59:59Z');
 
 // Alcance máximo posible según el presupuesto destinado.
-export const TARGET_REACH = 180_000;
+export const TARGET_REACH = 231_000;

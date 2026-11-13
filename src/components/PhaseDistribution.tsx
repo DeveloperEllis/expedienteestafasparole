@@ -12,6 +12,7 @@ import {
   Clock,
 } from 'lucide-react';
 import { SUBJECT_NAME } from '../config/subject';
+import { TARGET_REACH } from '../config/campaign';
 import {
   CHANNELS,
   LOCATIONS,
@@ -167,10 +168,30 @@ export const PhaseDistribution: React.FC = () => {
           Posible alcance según el presupuesto destinado
         </p>
         <p className="mt-3 font-mono text-5xl sm:text-7xl font-bold text-neutral-900 dark:text-white tabular-nums">
-          {formatNumber(reach)}
+          {formatNumber(TARGET_REACH)}
         </p>
-        <p className="text-sm text-neutral-500 mt-1">personas que se podrían alcanzar</p>
-        <p className="text-[11px] text-neutral-500 mt-3 max-w-md mx-auto">
+        <p className="text-sm text-neutral-500 mt-1">personas</p>
+
+        {/* Avance hacia el alcance posible */}
+        <div className="mt-8 pt-6 border-t border-emerald-500/20 space-y-3">
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400">
+            Alcance proyectado hasta ahora
+          </p>
+          <p className="font-mono text-3xl sm:text-4xl font-bold text-emerald-400 tabular-nums">
+            {formatNumber(reach)}
+          </p>
+          <div className="w-full max-w-md mx-auto h-2.5 bg-neutral-200 dark:bg-white/5 rounded-full overflow-hidden">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 transition-all duration-300"
+              style={{ width: `${(reach / TARGET_REACH) * 100}%` }}
+            />
+          </div>
+          <p className="font-mono text-[11px] text-neutral-500">
+            {((reach / TARGET_REACH) * 100).toFixed(1)}% del alcance posible
+          </p>
+        </div>
+
+        <p className="text-[11px] text-neutral-500 mt-5 max-w-md mx-auto">
           Estimación. El alcance final depende del presupuesto que se destine a la campaña.
         </p>
 
